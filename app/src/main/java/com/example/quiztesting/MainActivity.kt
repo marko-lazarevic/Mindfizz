@@ -38,7 +38,6 @@ class MainActivity : ComponentActivity() {
 
         // Find views by their IDs
         etQuizCode = findViewById(R.id.etQuizCode)
-        val myRef = database.getReference("quizzes")
 
         val btPlay = findViewById<Button>(R.id.btPlay)
         btPlay.setOnClickListener {
@@ -57,6 +56,7 @@ class MainActivity : ComponentActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
                     val quiz = dataSnapshot.getValue(Quiz::class.java)
+                    Log.d("Main",quiz.toString())
                     if (quiz != null) {
                         // Quiz found, do something with it
                         // Example: Display the quiz details
