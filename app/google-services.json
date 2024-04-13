@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "580844089954",
+    "firebase_url": "https://realquiz-31695-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "realquiz-31695",
+    "storage_bucket": "realquiz-31695.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580844089954:android:685cd8ead96d4fd6a0573b",
+        "android_client_info": {
+          "package_name": "com.example.clicker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3M2NEB1R5Psrtxsh3w8OO8edbmiWAkJU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580844089954:android:1f534762a234cc4ba0573b",
+        "android_client_info": {
+          "package_name": "com.example.quiztesting"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3M2NEB1R5Psrtxsh3w8OO8edbmiWAkJU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
