@@ -2,6 +2,7 @@ package com.example.quiztesting
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,5 +18,18 @@ class QuizActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.quiz)
+
+        if (intent.hasExtra("quizObject")) {
+            // Retrieve the Quiz object from the intent extras
+            val quiz = intent.getParcelableExtra<Quiz>("quizObject")
+
+            // Now you can use the quiz object as needed
+            if (quiz != null) {
+                // Example: Log the quiz name
+                Log.d("QuizActivity", "Quiz Name: ${quiz.name}")
+            }
+        } else {
+            Log.e("QuizActivity", "Intent does not have 'quizObject' extra.")
+        }
     }
 }

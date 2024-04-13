@@ -62,10 +62,10 @@ class MainActivity : ComponentActivity() {
                         // Example: Display the quiz details
                         Log.d("MainActivity", "Quiz found: ${quiz.name}")
                         // You can replace Log.d with code to display the quiz details
-                        //TODO
-                        //val intent = Intent(this@MainActivity, QuizActivity::class.java)
-                        //intent.putExtra("quizObject", quiz)
-                        //startActivity(intent)
+
+                        val intent = Intent(this@MainActivity, QuizActivity::class.java)
+                        intent.putExtra("quizObject", quiz)
+                        startActivity(intent)
                     }
                 } else {
                     // Quiz not found
