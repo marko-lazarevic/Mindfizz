@@ -6,15 +6,6 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.quiztesting.ui.theme.QuizTestingTheme
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -52,33 +43,24 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun loadQuizByKey(quizCode: String) {
-        quizzesRef.child(quizCode).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    val quiz = dataSnapshot.getValue(Quiz::class.java)
-                    Log.d("Main",quiz.toString())
-                    if (quiz != null) {
-                        // Quiz found, do something with it
-                        // Example: Display the quiz details
-                        Log.d("MainActivity", "Quiz found: ${quiz.name}")
-                        // You can replace Log.d with code to display the quiz details
-
-                        val intent = Intent(this@MainActivity, QuizActivity::class.java)
-                        intent.putExtra("quizObject", quiz)
-                        startActivity(intent)
-                    }
-                } else {
-                    // Quiz not found
-                    Log.d("MainActivity", "Quiz not found for code: $quizCode")
-                    // You can replace Log.d with code to handle the quiz not found case
-                }
+        DatabaseUtils.loadQuizByKey(quizCode, object : DatabaseUtils.QuizLoadListener {
+            override fun onQuizLoaded(quiz: Quiz) {
+                // Quiz loaded successfully, start QuizActivity or perform other actions
+                val intent = Intent(this@MainActivity, QuizActivity::class.java)
+                intent.putExtra("quizObject", quiz)
+                startActivity(intent)
             }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Handle database error
-                Log.e("MainActivity", "Error loading quiz: ${databaseError.message}")
-                // You can replace Log.e with code to handle the database error
+            override fun onQuizNotFound(quizCode: String) {
+                //TODO Handle quiz not found case
+                Log.d("MainActivity", "Quiz not found for code: $quizCode")
+            }
+
+            override fun onDatabaseError(error: String) {
+                //TODO Handle database error
+                Log.e("MainActivity", "Error loading quiz: $error")
             }
         })
+
     }
 }
