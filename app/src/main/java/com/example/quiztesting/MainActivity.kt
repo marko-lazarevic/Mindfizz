@@ -6,12 +6,15 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.ComponentActivity
+import androidx.compose.material3.AlertDialog
+import androidx.compose.runtime.Composable
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-
+import android.app.AlertDialog
+import android.widget.Toast
 
 
 class MainActivity : ComponentActivity() {
@@ -36,6 +39,7 @@ class MainActivity : ComponentActivity() {
             if (quizCode.isNotEmpty()) {
                 loadQuizByKey(quizCode)
             } else {
+                showAlertDialog()
                 // Handle empty quiz code input
                 // You can show an error message or take other actions as needed
             }
@@ -63,4 +67,16 @@ class MainActivity : ComponentActivity() {
         })
 
     }
+
+    private fun showAlertDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Niste uneli kviz ID")
+            .setMessage("Zelite li da unesete kviz ID?")
+            .setPositiveButton("Da", null)
+
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.show()
+    }
+
 }
+
