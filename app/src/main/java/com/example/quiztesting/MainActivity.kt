@@ -56,6 +56,7 @@ class MainActivity : ComponentActivity() {
             }
 
             override fun onQuizNotFound(quizCode: String) {
+                showAlertDialog2()
                 //TODO Handle quiz not found case
                 Log.d("MainActivity", "Quiz not found for code: $quizCode")
             }
@@ -76,6 +77,21 @@ class MainActivity : ComponentActivity() {
 
         val alertDialog: AlertDialog = builder.create()
         alertDialog.show()
+    }
+
+    private fun showAlertDialog2() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Nije pronadjen kviz")
+            .setMessage("Unesite novi ID")
+            .setPositiveButton("OK",) { dialog, which ->
+                dialog.dismiss()
+                etQuizCode.setText("")
+            }
+
+
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.show()
+
     }
 
 }
