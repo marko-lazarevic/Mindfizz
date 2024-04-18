@@ -88,6 +88,12 @@ class MainActivity : ComponentActivity() {
                 showAlertDialog()
             }
         }
+
+        val btCreate = findViewById<Button>(R.id.btCreate)
+        btCreate.setOnClickListener {
+            val intent = Intent(this@MainActivity, CreateQuizActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun loadQuizByKey(quizCode: String) {

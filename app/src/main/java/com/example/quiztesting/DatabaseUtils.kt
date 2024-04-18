@@ -19,6 +19,16 @@ object DatabaseUtils {
         fun onDatabaseError(error: String)
     }
 
+    interface AddQuizListener {
+        fun onQuizAdded(key: String)
+        fun onAddQuizError(error: String)
+    }
+
+    interface CreateUserListener {
+        fun onUserCreated(user: FirebaseUser)
+        fun onUserCreationFailed(error: String)
+    }
+
     fun loadQuizByKey(quizCode: String, listener: QuizLoadListener) {
         quizzesRef.child(quizCode).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -40,9 +50,16 @@ object DatabaseUtils {
         })
     }
 
-    interface CreateUserListener {
-        fun onUserCreated(user: FirebaseUser)
-        fun onUserCreationFailed(error: String)
+    fun addNewQuiz(quiz: Quiz, listener: AddQuizListener):String {
+        val key = quizzesRef.push().key // Generate a new unique key
+        if (key != null) {
+            quizzesRef.child(key).setValue(quiz)
+                .addOnSuccessListener { listener.onQuizAdded(key) }
+                .addOnFailureListener { listener.onAddQuizError("Failed to add quiz") }
+        } else {
+            listener.onAddQuizError("Failed to generate key")
+        }
+        return key?:""
     }
 
     fun createUser(displayName: String, listener: CreateUserListener) {
