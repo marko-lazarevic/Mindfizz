@@ -15,20 +15,66 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import android.app.AlertDialog
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.UserProfileChangeRequest
 
 
 class MainActivity : ComponentActivity() {
     private lateinit var etQuizCode: EditText
-    private lateinit var database: FirebaseDatabase
-    private lateinit var quizzesRef: DatabaseReference
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main)
 
-        // Initialize Firebase Realtime Database
-        database = FirebaseDatabase.getInstance()
-        quizzesRef = database.getReference("quizzes")
+        val auth = FirebaseAuth.getInstance()
+        // Check if user is already signed in anonymously
+        if (auth.currentUser == null) {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Enter Display Name")
+
+            // Set up the input field
+            val input = EditText(this)
+            builder.setView(input)
+
+            // Set up the OK button
+            builder.setPositiveButton("OK", null) // Set listener to null for now
+
+            // Disable the dialog cancel button
+            builder.setCancelable(false)
+
+            val alertDialog = builder.create()
+
+            // Override the OnShowListener to handle the button click
+            alertDialog.setOnShowListener {
+                val button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                button.setOnClickListener {
+                    val displayName = input.text.toString().trim()
+                    if (displayName.isNotEmpty()) {
+                        // Use DatabaseUtils to create user and set display name
+                        DatabaseUtils.createUser(displayName, object : DatabaseUtils.CreateUserListener {
+                            override fun onUserCreated(user: FirebaseUser) {
+                                // User created successfully, continue with app logic
+                                alertDialog.dismiss() // Close the dialog after successful user creation
+                            }
+
+                            override fun onUserCreationFailed(error: String) {
+                                // Handle user creation failure
+                                Log.e("MainActivity", "User creation failed: $error")
+                                // You can show an error message or take other actions as needed
+                            }
+                        })
+                    } else {
+                        // Wait for the user to enter a display name
+                        input.error = "Please enter a display name"
+                        input.requestFocus()
+                    }
+                }
+            }
+
+            alertDialog.show()
+        } else {
+            Log.d("MainActivity", auth.currentUser?.displayName.toString())
+        }
 
         // Find views by their IDs
         etQuizCode = findViewById(R.id.etQuizCode)
@@ -40,8 +86,6 @@ class MainActivity : ComponentActivity() {
                 loadQuizByKey(quizCode)
             } else {
                 showAlertDialog()
-                // Handle empty quiz code input
-                // You can show an error message or take other actions as needed
             }
         }
     }
@@ -57,12 +101,10 @@ class MainActivity : ComponentActivity() {
 
             override fun onQuizNotFound(quizCode: String) {
                 showAlertDialog2()
-                //TODO Handle quiz not found case
                 Log.d("MainActivity", "Quiz not found for code: $quizCode")
             }
 
             override fun onDatabaseError(error: String) {
-                //TODO Handle database error
                 Log.e("MainActivity", "Error loading quiz: $error")
             }
         })
