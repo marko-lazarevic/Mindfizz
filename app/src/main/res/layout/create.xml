@@ -14,4 +14,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/imeKviza"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:translationX="20dp"
+        android:translationY="100dp"
+        android:hint="Unesite ime kviza"
+        android:backgroundTint="@color/teal_200"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/opisKviza"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:translationY="40dp"
+        android:translationX="20dp"
+        android:hint="Unesite opis kviza"
+        android:backgroundTint="@color/teal_700"
+        tools:layout_editor_absoluteY="100dp"
+        tools:ignore="MissingConstraints" />
+    
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="300dp"
+        android:layout_height="500dp"
+        android:translationY="200dp"
+        android:translationX="25dp"
+        tools:itemCount="5"
+        tools:ignore="MissingConstraints">
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
