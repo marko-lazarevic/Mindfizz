@@ -4,9 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="300dp"
     android:layout_height="50dp"
-    android:translationY="200dp"
-    android:translationX="25dp"
-    android:layout_margin="10dp"
+    android:layout_marginBottom="10dp"
     app:cardElevation="6dp">
 
     <LinearLayout
