@@ -1,6 +1,7 @@
 package com.example.quiztesting
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
@@ -14,7 +15,10 @@ class CreateQuizActivity: ComponentActivity() {
     private var quizName:String = ""
     private var quizDescription:String = ""
     private var questions: MutableList<Question> = mutableListOf()
+    private var data: MutableList<ItemsViewModel> = mutableListOf()
     private lateinit var btAddQuestion: Button
+    private lateinit var adapter: CustomAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.create)
@@ -25,21 +29,22 @@ class CreateQuizActivity: ComponentActivity() {
         // this creates a vertical layout Manager
         recyclerview.layoutManager = LinearLayoutManager(this)
 
-        // ArrayList of class ItemsViewModel
-        val data = ArrayList<ItemsViewModel>()
 
         // This loop will create 20 Views containing
         // the image with the count of view
-        for (i in 1..20) {
-            data.add(ItemsViewModel(R.drawable.itemimage, "Item" + i))
+        for (question in questions) {
+            data.add(ItemsViewModel(R.drawable.itemimage, question.question))
         }
 
         // This will pass the ArrayList to our Adapter
-        val adapter = CustomAdapter(data)
+        adapter = CustomAdapter(data) { position ->
+            val selectedQuestion = questions[position]
+            showEditQuestionPopup(selectedQuestion)
+        }
 
         // Setting the Adapter with the recyclerview
         recyclerview.adapter = adapter
-        btAddQuestion = findViewById<Button>(R.id.btAddQuestion)
+        btAddQuestion = findViewById(R.id.btAddQuestion)
 
         btAddQuestion.setOnClickListener {
             showAddQuestionPopup()
@@ -78,10 +83,27 @@ class CreateQuizActivity: ComponentActivity() {
                 val answers = listOf(answerCorrectText, answerI1Text, answerI2Text, answerI3Text)
                 val question = Question(questionText, answers, 0) // Assuming correct answer index is 0
                 questions.add(question)
+                data.add(ItemsViewModel(R.drawable.itemimage, question.question))
+
+                adapter.notifyItemInserted(data.size - 1)
                 // You can update your RecyclerView adapter here if needed
                 popupWindow.dismiss()
             } else {
-                // Handle case where fields are empty
+                if (questionText.isEmpty()) {
+                    etQuestion.error = "Enter a question"
+                }
+                if (answerCorrectText.isEmpty()) {
+                    etAnswerCorrect.error = "Enter the correct answer"
+                }
+                if (answerI1Text.isEmpty()) {
+                    etAnswerI1.error = "Enter an incorrect answer"
+                }
+                if (answerI2Text.isEmpty()) {
+                    etAnswerI2.error = "Enter an incorrect answer"
+                }
+                if (answerI3Text.isEmpty()) {
+                    etAnswerI3.error = "Enter an incorrect answer"
+                }
             }
         }
 
@@ -91,6 +113,12 @@ class CreateQuizActivity: ComponentActivity() {
 
 
         popupWindow.showAsDropDown(btAddQuestion)
+    }
+
+
+    private fun showEditQuestionPopup(question: Question) {
+        // Inflate and configure your popup window with the selected question for editing
+        Log.d("CreateQuizActivity",question.toString())
     }
 
 
