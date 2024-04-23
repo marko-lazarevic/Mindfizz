@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="30dp"
+    android:background="@android:color/white">
+
+    <EditText
+        android:id="@+id/etQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your question"
+        android:padding="4dp"
+        android:layout_marginBottom="20dp" />
+
+    <EditText
+        android:id="@+id/etAnswerCorrect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etQuestion"
+        android:hint="Correct answer"
+        android:layout_marginBottom="20dp"
+        android:padding="4dp"
+        android:background="@android:color/holo_green_light" />
+    <EditText
+        android:id="@+id/etAnswerI1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etAnswerCorrect"
+        android:hint="Incorrect answer"
+        android:layout_marginBottom="20dp"
+        android:padding="4dp"
+        android:background="@android:color/holo_red_light"
+        />
+    <EditText
+        android:id="@+id/etAnswerI2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etAnswerI1"
+        android:hint="Incorrect answer"
+        android:layout_marginBottom="20dp"
+        android:padding="4dp"
+        android:background="@android:color/holo_red_light" />
+    <EditText
+        android:id="@+id/etAnswerI3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etAnswerI2"
+        android:hint="Incorrect answer"
+        android:layout_marginBottom="20dp"
+        android:padding="4dp"
+        android:background="@android:color/holo_red_light" />
+
+
+    <Button
+        android:id="@+id/btAddQuestionPopup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etAnswerI3"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp"
+        android:text="Add Question" />
+
+    <Button
+        android:id="@+id/btCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etAnswerI3"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:text="Cancel" />
+
+</RelativeLayout>
