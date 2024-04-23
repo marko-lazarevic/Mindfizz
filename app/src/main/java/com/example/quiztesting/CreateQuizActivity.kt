@@ -8,20 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 
 class CreateQuizActivity: ComponentActivity() {
 
-    // ovako se ne uzimaju vrednosti, crash-uje apl
-    // popraviti
-    //val imeKviza = findViewById<EditText>(R.id.imeKviza)
-    //val opisKviza = findViewById<EditText>(R.id.opisKviza)
-
-    //val imeText = imeKviza.text
-    //val opisText = opisKviza.text
+    private var quizName:String = ""
+    private var quizDescription:String = ""
+    private var questions:Array<Question> = arrayOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.create)
 
         // getting the recyclerview by its id
-        val recyclerview = findViewById<RecyclerView>(R.id.recyclerview)
+        val recyclerview = findViewById<RecyclerView>(R.id.rwQuestions)
 
         // this creates a vertical layout Manager
         recyclerview.layoutManager = LinearLayoutManager(this)

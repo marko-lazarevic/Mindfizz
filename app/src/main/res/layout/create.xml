@@ -3,50 +3,64 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="30dp">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="CREATE QUIZ"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:backgroundTint="@color/teal_200"
+        android:hint="Quiz name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/etmDescription"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Quiz description"
+        android:inputType="textMultiLine"
+        android:lines="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/etName"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginTop="20dp" />
 
-    <EditText
-        android:id="@+id/imeKviza"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:translationX="20dp"
-        android:translationY="100dp"
-        android:hint="Unesite ime kviza"
-        android:backgroundTint="@color/teal_200"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/opisKviza"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:translationY="40dp"
-        android:translationX="20dp"
-        android:hint="Unesite opis kviza"
-        android:backgroundTint="@color/teal_700"
-        tools:layout_editor_absoluteY="100dp"
-        tools:ignore="MissingConstraints" />
-    
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
+        android:id="@+id/rwQuestions"
         android:layout_width="300dp"
-        android:layout_height="500dp"
-        android:translationY="200dp"
-        android:translationX="25dp"
-        tools:itemCount="5"
-        tools:ignore="MissingConstraints">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/btAddQuestion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etmDescription"
+        tools:ignore="MissingConstraints"
+        tools:itemCount="5" />
 
+    <Button
+        android:id="@+id/btAddQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add question"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-
+    <Button
+        android:id="@+id/btCreateQuiz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create quiz"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
