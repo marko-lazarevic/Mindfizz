@@ -6,18 +6,9 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.ComponentActivity
-import androidx.compose.material3.AlertDialog
-import androidx.compose.runtime.Composable
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import android.app.AlertDialog
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.UserProfileChangeRequest
 
 
 class MainActivity : ComponentActivity() {
@@ -119,9 +110,9 @@ class MainActivity : ComponentActivity() {
 
     private fun showAlertDialog() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Niste uneli kviz ID")
-            .setMessage("Zelite li da unesete kviz ID?")
-            .setPositiveButton("Da", null)
+        builder.setTitle("Quiz code empty")
+            .setMessage("Please enter the quiz code.")
+            .setPositiveButton("OK", null)
 
         val alertDialog: AlertDialog = builder.create()
         alertDialog.show()
@@ -129,9 +120,9 @@ class MainActivity : ComponentActivity() {
 
     private fun showAlertDialog2() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Nije pronadjen kviz")
-            .setMessage("Unesite novi ID")
-            .setPositiveButton("OK",) { dialog, which ->
+        builder.setTitle("Quiz not found!")
+            .setMessage("Please try again.")
+            .setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
                 etQuizCode.setText("")
             }

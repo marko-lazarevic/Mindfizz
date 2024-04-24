@@ -27,7 +27,7 @@ class QuizCreatedActivity : ComponentActivity() {
             val clip = ClipData.newPlainText("Quiz Code", quizCode)
             clipboardManager.setPrimaryClip(clip)
             // Show a message indicating the code is copied
-            // You can use Toast or Snackbar for this
+            // You can use Toast or Snack bar for this
         }
 
         // Set click listener to share the quiz code

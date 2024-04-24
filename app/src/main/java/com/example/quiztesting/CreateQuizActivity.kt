@@ -5,15 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.PopupWindow
 import androidx.activity.ComponentActivity
-import androidx.compose.ui.text.toLowerCase
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import java.util.Locale
 
 class CreateQuizActivity: ComponentActivity() {
 
@@ -65,14 +62,15 @@ class CreateQuizActivity: ComponentActivity() {
 
     }
 
+
     override fun onBackPressed() {
         val alertDialogBuilder = AlertDialog.Builder(this)
         alertDialogBuilder.setTitle("Exit Quiz Creation")
         alertDialogBuilder.setMessage("Are you sure you want to exit quiz creation? Your data won't be saved.")
-        alertDialogBuilder.setPositiveButton("Yes") { dialog, which ->
+        alertDialogBuilder.setPositiveButton("Yes") { _, _ ->
             super.onBackPressed() // Go back if user confirms
         }
-        alertDialogBuilder.setNegativeButton("No") { dialog, which ->
+        alertDialogBuilder.setNegativeButton("No") { _, _ ->
             // Do nothing, stay in the quiz creation activity
         }
         val alertDialog = alertDialogBuilder.create()
@@ -272,14 +270,14 @@ class CreateQuizActivity: ComponentActivity() {
         val alertDialogBuilder = AlertDialog.Builder(this)
         alertDialogBuilder.setTitle("Delete Question")
         alertDialogBuilder.setMessage("Are you sure you want to delete this question: \"${questionToDelete.question}\"?")
-        alertDialogBuilder.setPositiveButton("Yes") { dialog, which ->
+        alertDialogBuilder.setPositiveButton("Yes") { _, _ ->
             // Handle delete action here
             questions.removeAt(position)
             data.removeAt(position)
             adapter.notifyItemRemoved(position)
             // You may also need to update any other related data or views
         }
-        alertDialogBuilder.setNegativeButton("No") { dialog, which ->
+        alertDialogBuilder.setNegativeButton("No") { _, _ ->
             // Do nothing, just close the dialog
         }
         val alertDialog = alertDialogBuilder.create()
@@ -299,13 +297,13 @@ class CreateQuizActivity: ComponentActivity() {
             val alertDialogBuilder = AlertDialog.Builder(this)
             alertDialogBuilder.setTitle("Error")
             alertDialogBuilder.setMessage(errorMessage)
-            alertDialogBuilder.setPositiveButton("OK") { dialog, which ->
+            alertDialogBuilder.setPositiveButton("OK") { _, _ ->
                 // Dismiss the dialog
             }
             val alertDialog = alertDialogBuilder.create()
             alertDialog.show()
         } else {
-            val newQuiz:Quiz = Quiz(quizName,quizDescription, questions)
+            val newQuiz = Quiz(quizName,quizDescription, questions)
             DatabaseUtils.addNewQuiz(newQuiz, object : DatabaseUtils.AddQuizListener {
                 override fun onQuizAdded(key: String) {
                     Log.d("CreateQuiz", "New quiz added with key: $key")
