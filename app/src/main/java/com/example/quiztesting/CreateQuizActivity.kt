@@ -61,6 +61,20 @@ class CreateQuizActivity: ComponentActivity() {
 
     }
 
+    override fun onBackPressed() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle("Exit Quiz Creation")
+        alertDialogBuilder.setMessage("Are you sure you want to exit quiz creation? Your data won't be saved.")
+        alertDialogBuilder.setPositiveButton("Yes") { dialog, which ->
+            super.onBackPressed() // Go back if user confirms
+        }
+        alertDialogBuilder.setNegativeButton("No") { dialog, which ->
+            // Do nothing, stay in the quiz creation activity
+        }
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+    }
+
 
     private fun showAddQuestionPopup() {
         val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -219,6 +233,35 @@ class CreateQuizActivity: ComponentActivity() {
     }
 
     private fun createQuiz(){
+        val quizName = findViewById<EditText>(R.id.etName).text.toString().trim()
+        val quizDescription = findViewById<EditText>(R.id.etmDescription).text.toString().trim()
+        val errorMessage = when {
+            quizName.isEmpty() -> "Please enter a quiz name."
+            questions.isEmpty() -> "Please add at least one question to the quiz."
+            else -> null // No error message if everything is valid
+        }
+
+        if (errorMessage != null) {
+            val alertDialogBuilder = AlertDialog.Builder(this)
+            alertDialogBuilder.setTitle("Error")
+            alertDialogBuilder.setMessage(errorMessage)
+            alertDialogBuilder.setPositiveButton("OK") { dialog, which ->
+                // Dismiss the dialog
+            }
+            val alertDialog = alertDialogBuilder.create()
+            alertDialog.show()
+        } else {
+            val newQuiz:Quiz = Quiz(quizName,quizDescription, questions)
+            DatabaseUtils.addNewQuiz(newQuiz, object : DatabaseUtils.AddQuizListener {
+                override fun onQuizAdded(key: String) {
+                    Log.d("CreateQuiz", "New quiz added with key: $key")
+                }
+
+                override fun onAddQuizError(error: String) {
+                    Log.e("CreateQuiz", "Error adding quiz: $error")
+                }
+            })
+        }
 
     }
 
