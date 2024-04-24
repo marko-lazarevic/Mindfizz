@@ -8,7 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class CustomAdapter(private val mList: List<ItemsViewModel>,
-                    private val onItemClick: (position: Int) -> Unit) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+                    private val onItemClick: (position: Int) -> Unit,
+                    private val onDeleteClick: (position: Int) -> Unit
+) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,9 +29,10 @@ class CustomAdapter(private val mList: List<ItemsViewModel>,
 
         // sets the text to the textview from our itemHolder class
         holder.textView.text = itemsViewModel.text
-       // holder.imageView2.setOnClickListener {
 
-       // }
+        holder.imDelete.setOnClickListener {
+            onDeleteClick(position)
+        }
 
     }
 
@@ -48,6 +51,6 @@ class CustomAdapter(private val mList: List<ItemsViewModel>,
 
         val imageView: ImageView = itemView.findViewById(R.id.imageview)
         val textView: TextView = itemView.findViewById(R.id.textView)
-        val imageView2: ImageView = itemView.findViewById(R.id.imageview2)
+        val imDelete: ImageView = itemView.findViewById(R.id.imDelete)
     }
 }

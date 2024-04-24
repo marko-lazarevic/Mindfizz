@@ -40,7 +40,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="end"
-            android:id="@+id/imageview2"
+            android:id="@+id/imDelete"
             android:scaleType="fitEnd"
             android:layout_weight="0.01"
             android:src="@drawable/itemimage2"

@@ -1,5 +1,6 @@
 package com.example.quiztesting
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 
 class CreateQuizActivity: ComponentActivity() {
 
-    private var quizName:String = ""
-    private var quizDescription:String = ""
     private var questions: MutableList<Question> = mutableListOf()
     private var data: MutableList<ItemsViewModel> = mutableListOf()
     private lateinit var btAddQuestion: Button
@@ -36,10 +35,15 @@ class CreateQuizActivity: ComponentActivity() {
         }
 
         // This will pass the ArrayList to our Adapter
-        adapter = CustomAdapter(data) { position ->
-            val selectedQuestion = questions[position]
-            showEditQuestionPopup(selectedQuestion)
-        }
+        adapter = CustomAdapter(data,
+            onItemClick = { position ->
+                val selectedQuestion = questions[position]
+                showEditQuestionPopup(selectedQuestion)
+            },
+            onDeleteClick = { position ->
+                deleteQuestion(position)
+            }
+        )
 
         // Setting the Adapter with the recyclerview
         recyclerview.adapter = adapter
@@ -50,6 +54,10 @@ class CreateQuizActivity: ComponentActivity() {
         }
 
         val btCreateQuiz:Button = findViewById(R.id.btCreateQuiz)
+
+        btCreateQuiz.setOnClickListener{
+            createQuiz()
+        }
 
     }
 
@@ -191,5 +199,27 @@ class CreateQuizActivity: ComponentActivity() {
         popupWindow.showAsDropDown(btAddQuestion)
     }
 
+    private fun deleteQuestion(position:Int){
+        val questionToDelete = questions[position]
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle("Delete Question")
+        alertDialogBuilder.setMessage("Are you sure you want to delete this question: \"${questionToDelete.question}\"?")
+        alertDialogBuilder.setPositiveButton("Yes") { dialog, which ->
+            // Handle delete action here
+            questions.removeAt(position)
+            data.removeAt(position)
+            adapter.notifyItemRemoved(position)
+            // You may also need to update any other related data or views
+        }
+        alertDialogBuilder.setNegativeButton("No") { dialog, which ->
+            // Do nothing, just close the dialog
+        }
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+    }
+
+    private fun createQuiz(){
+
+    }
 
 }
