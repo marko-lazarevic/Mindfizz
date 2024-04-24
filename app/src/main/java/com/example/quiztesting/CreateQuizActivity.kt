@@ -10,8 +10,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.PopupWindow
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.text.toLowerCase
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import java.util.Locale
 
 class CreateQuizActivity: ComponentActivity() {
 
@@ -106,17 +108,40 @@ class CreateQuizActivity: ComponentActivity() {
             val answerI2Text = etAnswerI2.text.toString()
             val answerI3Text = etAnswerI3.text.toString()
 
+
+
             if (questionText.isNotEmpty() && answerCorrectText.isNotEmpty() &&
                 answerI1Text.isNotEmpty() && answerI2Text.isNotEmpty() && answerI3Text.isNotEmpty()
             ) {
-                val answers = listOf(answerCorrectText, answerI1Text, answerI2Text, answerI3Text)
-                val question = Question(questionText, answers, 0) // Assuming correct answer index is 0
-                questions.add(question)
-                data.add(ItemsViewModel(question.question))
+                if(answerCorrectText.trim().equals(answerI1Text.trim(), ignoreCase = true)){
+                    etAnswerCorrect.error = "Answers can't be the same!"
+                    etAnswerI1.error = "Answers can't be the same!"
+                }else if(answerCorrectText.trim().equals(answerI2Text.trim(), ignoreCase = true)){
+                    etAnswerCorrect.error = "Answers can't be the same!"
+                    etAnswerI2.error = "Answers can't be the same!"
+                }else if(answerCorrectText.trim().equals(answerI3Text.trim(), ignoreCase = true)){
+                    etAnswerCorrect.error = "Answers can't be the same!"
+                    etAnswerI3.error = "Answers can't be the same!"
+                }else if(answerI1Text.trim().equals(answerI2Text.trim(), ignoreCase = true)){
+                    etAnswerI1.error = "Answers can't be the same!"
+                    etAnswerI2.error = "Answers can't be the same!"
+                }else if(answerI1Text.trim().equals(answerI3Text.trim(), ignoreCase = true)){
+                    etAnswerI1.error = "Answers can't be the same!"
+                    etAnswerI3.error = "Answers can't be the same!"
+                }else if(answerI2Text.trim().equals(answerI3Text.trim(), ignoreCase = true)){
+                    etAnswerI2.error = "Answers can't be the same!"
+                    etAnswerI3.error = "Answers can't be the same!"
+                }else{
+                    val answers = listOf(answerCorrectText, answerI1Text, answerI2Text, answerI3Text)
+                    val question = Question(questionText, answers, 0) // Assuming correct answer index is 0
+                    questions.add(question)
+                    data.add(ItemsViewModel(question.question))
 
-                adapter.notifyItemInserted(data.size - 1)
-                // You can update your RecyclerView adapter here if needed
-                popupWindow.dismiss()
+                    adapter.notifyItemInserted(data.size - 1)
+                    // You can update your RecyclerView adapter here if needed
+                    popupWindow.dismiss()
+                }
+
             } else {
                 if (questionText.isEmpty()) {
                     etQuestion.error = "Enter a question"
@@ -183,16 +208,36 @@ class CreateQuizActivity: ComponentActivity() {
             if (questionText.isNotEmpty() && answerCorrectText.isNotEmpty() &&
                 answerI1Text.isNotEmpty() && answerI2Text.isNotEmpty() && answerI3Text.isNotEmpty()
             ) {
-                // Update the question in the list with new values
-                val answers = listOf(answerCorrectText, answerI1Text, answerI2Text, answerI3Text)
-                val updatedQuestion = Question(questionText, answers, 0) // Assuming correct answer index is 0
-                val index = questions.indexOf(question)
-                if (index != -1) {
-                    questions[index] = updatedQuestion
-                    data[index] = ItemsViewModel(questionText) // Update data list
-                    adapter.notifyItemChanged(index)
+                if(answerCorrectText.trim().equals(answerI1Text.trim(), ignoreCase = true)){
+                    etAnswerCorrect.error = "Answers can't be the same!"
+                    etAnswerI1.error = "Answers can't be the same!"
+                }else if(answerCorrectText.trim().equals(answerI2Text.trim(), ignoreCase = true)){
+                    etAnswerCorrect.error = "Answers can't be the same!"
+                    etAnswerI2.error = "Answers can't be the same!"
+                }else if(answerCorrectText.trim().equals(answerI3Text.trim(), ignoreCase = true)){
+                    etAnswerCorrect.error = "Answers can't be the same!"
+                    etAnswerI3.error = "Answers can't be the same!"
+                }else if(answerI1Text.trim().equals(answerI2Text.trim(), ignoreCase = true)){
+                    etAnswerI1.error = "Answers can't be the same!"
+                    etAnswerI2.error = "Answers can't be the same!"
+                }else if(answerI1Text.trim().equals(answerI3Text.trim(), ignoreCase = true)){
+                    etAnswerI1.error = "Answers can't be the same!"
+                    etAnswerI3.error = "Answers can't be the same!"
+                }else if(answerI2Text.trim().equals(answerI3Text.trim(), ignoreCase = true)){
+                    etAnswerI2.error = "Answers can't be the same!"
+                    etAnswerI3.error = "Answers can't be the same!"
+                }else{
+                    // Update the question in the list with new values
+                    val answers = listOf(answerCorrectText, answerI1Text, answerI2Text, answerI3Text)
+                    val updatedQuestion = Question(questionText, answers, 0) // Assuming correct answer index is 0
+                    val index = questions.indexOf(question)
+                    if (index != -1) {
+                        questions[index] = updatedQuestion
+                        data[index] = ItemsViewModel(questionText) // Update data list
+                        adapter.notifyItemChanged(index)
+                    }
+                    popupWindow.dismiss()
                 }
-                popupWindow.dismiss()
             } else {
                 if (questionText.isEmpty()) {
                     etQuestion.error = "Enter a question"
