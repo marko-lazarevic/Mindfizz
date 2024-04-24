@@ -1,9 +1,11 @@
 package com.example.quiztesting
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.PopupWindow
@@ -86,6 +88,7 @@ class CreateQuizActivity: ComponentActivity() {
             true
         )
 
+
         val etQuestion = popupView.findViewById<EditText>(R.id.etQuestion)
         val etAnswerCorrect = popupView.findViewById<EditText>(R.id.etAnswerCorrect)
         val etAnswerI1 = popupView.findViewById<EditText>(R.id.etAnswerI1)
@@ -93,6 +96,8 @@ class CreateQuizActivity: ComponentActivity() {
         val etAnswerI3 = popupView.findViewById<EditText>(R.id.etAnswerI3)
         val btAddQuestionPopup = popupView.findViewById<Button>(R.id.btAddQuestionPopup)
         val btCancel = popupView.findViewById<Button>(R.id.btCancel)
+
+        etQuestion.requestFocus()
 
         btAddQuestionPopup.setOnClickListener {
             val questionText = etQuestion.text.toString()
@@ -158,6 +163,7 @@ class CreateQuizActivity: ComponentActivity() {
         val btAddQuestionPopup = popupView.findViewById<Button>(R.id.btAddQuestionPopup)
         val btCancel = popupView.findViewById<Button>(R.id.btCancel)
 
+        etQuestion.requestFocus()
         // Fill EditText fields with question details
         etQuestion.setText(question.question)
         etAnswerCorrect.setText(question.answers[0]) // Assuming the correct answer is always at index 0
@@ -209,6 +215,9 @@ class CreateQuizActivity: ComponentActivity() {
         btCancel.setOnClickListener {
             popupWindow.dismiss()
         }
+        // Clear focus from etName and etmDescription
+        findViewById<EditText>(R.id.etName).clearFocus()
+        findViewById<EditText>(R.id.etmDescription).clearFocus()
 
         popupWindow.showAsDropDown(btAddQuestion)
     }
@@ -255,6 +264,9 @@ class CreateQuizActivity: ComponentActivity() {
             DatabaseUtils.addNewQuiz(newQuiz, object : DatabaseUtils.AddQuizListener {
                 override fun onQuizAdded(key: String) {
                     Log.d("CreateQuiz", "New quiz added with key: $key")
+                    val intent = Intent(this@CreateQuizActivity, QuizCreatedActivity::class.java)
+                    intent.putExtra("quiz_code", key)
+                    startActivity(intent)
                 }
 
                 override fun onAddQuizError(error: String) {
