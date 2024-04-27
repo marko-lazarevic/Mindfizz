@@ -92,7 +92,8 @@ class MainActivity : ComponentActivity() {
             override fun onQuizLoaded(quiz: Quiz) {
                 // Quiz loaded successfully, start QuizActivity or perform other actions
                 val intent = Intent(this@MainActivity, QuizActivity::class.java)
-                intent.putExtra("quizObject", quiz)
+                intent.putExtra("quiz", quiz)
+
                 startActivity(intent)
             }
 
