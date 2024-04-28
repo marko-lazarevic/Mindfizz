@@ -1,4 +1,5 @@
 package com.example.quiztesting
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -91,7 +92,7 @@ object DatabaseUtils {
             quizzesRef.child(key).setValue(quiz)
                 .addOnSuccessListener { listener.onQuizAdded(key) }
                 .addOnFailureListener { listener.onAddQuizError("Failed to add quiz") }
-            leadboardRef.child(key).setValue(mutableListOf<LeaderboardEntry>())
+
         } else {
             listener.onAddQuizError("Failed to generate key")
         }
@@ -128,5 +129,28 @@ object DatabaseUtils {
                 listener.onUserCreationFailed("Anonymous authentication failed")
             }
         }
+    }
+
+    fun addUserToLeaderboard(quizCode: String, score: Int) {
+        val currentUser = auth.currentUser
+        currentUser?.let { user ->
+            val uid = user.uid
+            val displayName = user.displayName
+
+            if (uid != null && displayName != null) {
+                val leaderboardEntry = LeaderboardEntry(displayName, uid, score)
+                leadboardRef.child(quizCode).push().setValue(leaderboardEntry)
+                    .addOnSuccessListener {
+                        // Successfully added user to leaderboard
+                        Log.d("DatabseUtils", "User added to leaderboard for quiz code: $quizCode")
+                    }
+                    .addOnFailureListener { e ->
+                        // Handle failure
+                        Log.e("DatabseUtils", "Failed to add user to leaderboard: $e")
+                    }
+            } else {
+                Log.e("DatabseUtils", "User ID or display name is null.")
+            }
+        } ?: Log.e("DatabseUtils", "Current user is null.")
     }
 }

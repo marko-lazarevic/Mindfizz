@@ -1,5 +1,6 @@
 package com.example.quiztesting
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -22,6 +23,7 @@ class QuizActivity: ComponentActivity() {
     // Define more text views for other options if needed
     private var currentQuestionIndex = -1
     private lateinit var quiz: Quiz
+    private lateinit var quizCode:String
     private var score = 0
     private val answerOrder = IntArray(4)
     private var correctAnswerIndex = -1
@@ -48,6 +50,7 @@ class QuizActivity: ComponentActivity() {
 
         // Extract Quiz object from intent extra
         quiz = intent.getParcelableExtra("quiz") ?: return
+        quizCode =intent.getStringExtra("quizCode") ?: return
 
         btnSubmit.setOnClickListener {
             checkAnswer()
@@ -95,8 +98,10 @@ class QuizActivity: ComponentActivity() {
             option4TextView.text = optionsShuffled[3]
 
         } else {
-            // TODO
-            // Quiz completed
+            DatabaseUtils.addUserToLeaderboard(quizCode,score)
+            val intent = Intent(this@QuizActivity, LeaderboardActivity::class.java)
+            intent.putExtra("quizCode",quizCode)
+            startActivity(intent)
         }
     }
 

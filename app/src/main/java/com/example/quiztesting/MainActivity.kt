@@ -93,7 +93,7 @@ class MainActivity : ComponentActivity() {
                 // Quiz loaded successfully, start QuizActivity or perform other actions
                 val intent = Intent(this@MainActivity, QuizActivity::class.java)
                 intent.putExtra("quiz", quiz)
-
+                intent.putExtra("quizCode",quizCode)
                 startActivity(intent)
             }
 

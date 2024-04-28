@@ -6,10 +6,16 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 
 class LeaderboardActivity : ComponentActivity() {
+
+    private lateinit var quizCode:String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.leaderboard)
-        DatabaseUtils.loadLeadboardByKey("-NwYtMGPwhO2GFQ_jaxX",object : DatabaseUtils.BoardLoadListener {
+
+
+        quizCode =intent.getStringExtra("quizCode") ?: "q1"
+        DatabaseUtils.loadLeadboardByKey(quizCode,object : DatabaseUtils.BoardLoadListener {
             override fun onBoardLoaded(board: MutableList<LeaderboardEntry>) {
                 Log.d("Leaderboard",board.toString())
             }
