@@ -10,12 +10,22 @@ import com.google.firebase.database.ValueEventListener
 
 object DatabaseUtils {
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+
     private val quizzesRef: DatabaseReference = database.getReference("quizzes")
+    private val leadboardRef: DatabaseReference = database.getReference("leadboard")
+
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
 
     interface QuizLoadListener {
         fun onQuizLoaded(quiz: Quiz)
         fun onQuizNotFound(quizCode: String)
+        fun onDatabaseError(error: String)
+    }
+
+    interface BoardLoadListener {
+        fun onBoardLoaded(board: MutableList<LeaderboardEntry>)
+        fun onBoardNotFound(quizCode: String)
         fun onDatabaseError(error: String)
     }
 
@@ -50,12 +60,38 @@ object DatabaseUtils {
         })
     }
 
+    fun loadLeadboardByKey(quizCode: String, listener: BoardLoadListener){
+        leadboardRef.child(quizCode).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                    val entries = mutableListOf<LeaderboardEntry>()
+                    dataSnapshot.children.forEach { child ->
+                        val entry = child.getValue(LeaderboardEntry::class.java)
+                        entry?.let {
+                            entries.add(it)
+                        }
+                    }
+                    listener.onBoardLoaded(entries)
+
+                } else {
+                    listener.onBoardNotFound(quizCode)
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                listener.onDatabaseError(databaseError.message)
+            }
+        })
+    }
+
     fun addNewQuiz(quiz: Quiz, listener: AddQuizListener):String {
         val key = quizzesRef.push().key // Generate a new unique key
         if (key != null) {
             quizzesRef.child(key).setValue(quiz)
                 .addOnSuccessListener { listener.onQuizAdded(key) }
                 .addOnFailureListener { listener.onAddQuizError("Failed to add quiz") }
+            leadboardRef.child(key).setValue(mutableListOf<LeaderboardEntry>())
         } else {
             listener.onAddQuizError("Failed to generate key")
         }

@@ -15,6 +15,16 @@
         android:paddingVertical="32dp"
         android:paddingHorizontal="16dp"
         >
+
+        <TextView
+            android:id="@+id/tvTimer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="28sp"
+            android:textColor="@color/black"
+            android:text="" />
+
         <TextView
             android:id="@+id/tvQuestion"
             android:layout_width="match_parent"
@@ -68,5 +78,6 @@
             android:textSize="25dp"
             android:paddingVertical="10dp"
             />
+
     </LinearLayout>
 </ScrollView>

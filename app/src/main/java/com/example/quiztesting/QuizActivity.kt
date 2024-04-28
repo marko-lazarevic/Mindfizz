@@ -2,6 +2,7 @@ package com.example.quiztesting
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -15,15 +16,17 @@ class QuizActivity: ComponentActivity() {
     private lateinit var option2TextView: TextView
     private lateinit var option3TextView: TextView
     private lateinit var option4TextView: TextView
+    private lateinit var tvTimer: TextView
+    private lateinit var btnSubmit:Button
 
     // Define more text views for other options if needed
-    private var currentQuestionIndex = 0
+    private var currentQuestionIndex = -1
     private lateinit var quiz: Quiz
     private var score = 0
-    private var selectedAnswer = ""
     private val answerOrder = IntArray(4)
     private var correctAnswerIndex = -1
     private var selectedAnswerIndex = -1
+    private lateinit var countDownTimer: CountDownTimer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,30 +37,45 @@ class QuizActivity: ComponentActivity() {
         option2TextView = findViewById(R.id.Ans2)
         option3TextView = findViewById(R.id.Ans3)
         option4TextView = findViewById(R.id.Ans4)
+        tvTimer = findViewById(R.id.tvTimer)
 
         option1TextView.setOnClickListener { selectOption(0) }
         option2TextView.setOnClickListener { selectOption(1) }
         option3TextView.setOnClickListener { selectOption(2) }
         option4TextView.setOnClickListener { selectOption(3) }
 
-        val btnSubmit = findViewById<Button>(R.id.btnSubmit)
+        btnSubmit = findViewById(R.id.btnSubmit)
 
         // Extract Quiz object from intent extra
         quiz = intent.getParcelableExtra("quiz") ?: return
 
         btnSubmit.setOnClickListener {
             checkAnswer()
+            displayNextQuestion()
         }
 
-        // i pitanja da budu parcelable
-        // tajmer 20s kad istekne sledece pitanja
-        var totalQuestion: Int = quiz.questions.size
-        displayCurrentQuestion()
+        displayNextQuestion()
     }
 
     private fun displayCurrentQuestion() {
+        // Cancel the previous timer if running
+        if (::countDownTimer.isInitialized) {
+            countDownTimer.cancel()
+        }
+
+        currentQuestionIndex++
+
         val questions = quiz.questions
+
         if (currentQuestionIndex < questions.size) {
+            // Start timer for this question
+            startTimer()
+            option1TextView.setBackgroundResource(android.R.color.transparent)
+            option2TextView.setBackgroundResource(android.R.color.transparent)
+            option3TextView.setBackgroundResource(android.R.color.transparent)
+            option4TextView.setBackgroundResource(android.R.color.transparent)
+            selectedAnswerIndex = -1
+
             val question = questions[currentQuestionIndex]
             val optionsForQuestion = question.answers
 
@@ -103,9 +121,6 @@ class QuizActivity: ComponentActivity() {
 
 
     private fun checkAnswer(){
-        val currentQuestion = quiz.questions[currentQuestionIndex]
-        val correctAnswerIndex = currentQuestion.correctAnswer
-
         // Reset border colors
         option1TextView.setBackgroundResource(android.R.color.transparent)
         option2TextView.setBackgroundResource(android.R.color.transparent)
@@ -132,49 +147,68 @@ class QuizActivity: ComponentActivity() {
             )
         }
 
-        if (selectedAnswer.isNotBlank() && correctAnswerIndex >= 0 && selectedAnswer.toIntOrNull() == correctAnswerIndex) {
-            // Correct answer
-            score++
-            // Optionally provide feedback to the user
-
-        } else {
-            // Incorrect answer
-            // Optionally provide feedback to the user
-
+        if (selectedAnswerIndex == correctAnswerIndex){
+            incrementScore()
         }
+
+
 
     }
 
-    private fun onClick(view: View) {
-        if (view !is Button) return // Ensure only buttons can trigger this method
+    private fun incrementScore(){
+        score++
+    }
 
-        val clickedButton = view
-        if (clickedButton.id == R.id.btnSubmit) {
-            val currentQuestion = quiz.questions[currentQuestionIndex]
-            val correctAnswerIndex = currentQuestion.correctAnswer
+    private fun displayNextQuestion() {
+        // Disable all option buttons
+        option1TextView.isEnabled = false
+        option2TextView.isEnabled = false
+        option3TextView.isEnabled = false
+        option4TextView.isEnabled = false
+        btnSubmit.isEnabled = false
 
-            if (selectedAnswer.isNotBlank() && correctAnswerIndex >= 0 && selectedAnswer.toIntOrNull() == correctAnswerIndex) {
-                // Correct answer
-                score++
-                // Optionally provide feedback to the user
+        if (::countDownTimer.isInitialized) {
+            countDownTimer.cancel()
+        }
 
-            } else {
-                // TODO
-                // Incorrect answer
-                // Optionally provide feedback to the user
-
+        // Start a new timer for 5 seconds
+        val timer = object : CountDownTimer(5100, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                // Update timer display
+                val seconds = millisUntilFinished / 1000
+                tvTimer.text = "Next question in: $seconds s"
             }
 
-            currentQuestionIndex++
-            displayCurrentQuestion()
-        } else {
-            // Choices button clicked
-            selectedAnswer = clickedButton.text.toString()
+            override fun onFinish() {
+                // Timer finished, enable all option buttons again
+                option1TextView.isEnabled = true
+                option2TextView.isEnabled = true
+                option3TextView.isEnabled = true
+                option4TextView.isEnabled = true
+                btnSubmit.isEnabled = true
+                // Display the next question after the timer ends
+                displayCurrentQuestion()
+            }
         }
+        timer.start()
     }
-    fun onNextButtonClick(view: View) {
-        currentQuestionIndex++
-        displayCurrentQuestion()
+
+
+    private fun startTimer() {
+        countDownTimer = object : CountDownTimer(20100, 1000) { // 20 seconds timer
+            override fun onTick(millisUntilFinished: Long) {
+                // Update timer display
+                val seconds = millisUntilFinished / 1000
+                tvTimer.text = "Time: $seconds s"
+            }
+
+            override fun onFinish() {
+                // Timer finished, check answer and display next question
+                checkAnswer()
+                displayNextQuestion()
+            }
+        }
+        countDownTimer.start()
     }
 
 }
