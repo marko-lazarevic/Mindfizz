@@ -1,5 +1,6 @@
 package com.example.quiztesting
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -29,6 +30,7 @@ class QuizActivity: ComponentActivity() {
     private var correctAnswerIndex = -1
     private var selectedAnswerIndex = -1
     private lateinit var countDownTimer: CountDownTimer
+    private var milisUntilFinish = 20100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +60,20 @@ class QuizActivity: ComponentActivity() {
         }
 
         displayNextQuestion()
+    }
+
+    override fun onBackPressed() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle("Exit Quiz")
+        alertDialogBuilder.setMessage("Are you sure you want to exit quiz? Your data won't be saved.")
+        alertDialogBuilder.setPositiveButton("Yes") { _, _ ->
+            super.onBackPressed() // Go back if user confirms
+        }
+        alertDialogBuilder.setNegativeButton("No") { _, _ ->
+            // Do nothing, stay in the quiz creation activity
+        }
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
     }
 
     private fun displayCurrentQuestion() {
@@ -161,7 +177,7 @@ class QuizActivity: ComponentActivity() {
     }
 
     private fun incrementScore(){
-        score++
+        score += milisUntilFinish / 20 + 1
     }
 
     private fun displayNextQuestion() {
@@ -200,11 +216,13 @@ class QuizActivity: ComponentActivity() {
 
 
     private fun startTimer() {
-        countDownTimer = object : CountDownTimer(20100, 1000) { // 20 seconds timer
+        countDownTimer = object : CountDownTimer(20100, 10) { // 20 seconds timer
             override fun onTick(millisUntilFinished: Long) {
                 // Update timer display
                 val seconds = millisUntilFinished / 1000
                 tvTimer.text = "Time: $seconds s"
+
+                milisUntilFinish = millisUntilFinished.toInt()
             }
 
             override fun onFinish() {

@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 
 class QuizCreatedActivity : ComponentActivity() {
@@ -28,6 +29,8 @@ class QuizCreatedActivity : ComponentActivity() {
             clipboardManager.setPrimaryClip(clip)
             // Show a message indicating the code is copied
             // You can use Toast or Snack bar for this
+
+            showToast("Quiz code copied to clipboard")
         }
 
         // Set click listener to share the quiz code
@@ -55,5 +58,9 @@ class QuizCreatedActivity : ComponentActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish() // Finish the current activity to prevent going back to it
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

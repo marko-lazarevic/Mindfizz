@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp">
 
 
 
@@ -15,21 +16,34 @@
         tools:layout_editor_absoluteY="2dp"
         android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/main_text"
+        >
         <TextView
             android:id="@+id/textName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="TextView"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/textScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="TextView"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/imageIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:padding="0dp"
+            android:src="@drawable/background"
+            android:layout_marginStart="40dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">QuizTesting</string>
+    <string name="quiz_placeholder">Quiz code</string>
+    <string name="quiz_code">Quiz code</string>
+    <string name="play">Play</string>
+    <string name="create_your_own">Create your own</string>
+    <string name="quiz_name">Quiz name</string>
+    <string name="quiz_description">Quiz description</string>
 </resources>

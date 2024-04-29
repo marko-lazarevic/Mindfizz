@@ -10,7 +10,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 object DatabaseUtils {
-    private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+    public val database: FirebaseDatabase = FirebaseDatabase.getInstance()
 
     private val quizzesRef: DatabaseReference = database.getReference("quizzes")
     private val leadboardRef: DatabaseReference = database.getReference("leadboard")

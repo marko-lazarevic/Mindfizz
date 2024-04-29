@@ -12,29 +12,33 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:paddingVertical="32dp"
-        android:paddingHorizontal="16dp"
+        android:paddingVertical="30dp"
+        android:paddingHorizontal="30dp"
         >
 
         <TextView
             android:id="@+id/tvTimer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:padding="10dp"
+            android:text="Time: 20s"
             android:textAlignment="center"
-            android:textSize="28sp"
             android:textColor="@color/black"
-            android:text="" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tvQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            tools:text=""
-            android:textSize="28sp"
-            android:paddingHorizontal="20dp"
             android:layout_marginBottom="140dp"
-            />
+            android:background="@drawable/main_text"
+            android:padding="10dp"
+            android:paddingHorizontal="20dp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            tools:text="Pitanje 1" />
 
         <Button
             android:layout_width="match_parent"
@@ -75,8 +79,9 @@
             android:layout_height="wrap_content"
             android:text="SUBMIT"
             android:layout_marginTop="30dp"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:paddingVertical="10dp"
+            android:background="@drawable/button"
             />
 
     </LinearLayout>

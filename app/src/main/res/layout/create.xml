@@ -4,19 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30dp">
+    android:padding="30dp"
+    android:background="@color/main_background">
 
     <EditText
         android:id="@+id/etName"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/teal_200"
-        android:hint="Quiz name"
+        android:hint="@string/quiz_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:autofillHints=""
+        android:background="@drawable/main_text"
+        android:padding="10dp"/>
 
     <EditText
         android:id="@+id/etmDescription"
@@ -24,14 +27,16 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="Quiz description"
+        android:hint="@string/quiz_description"
         android:inputType="textMultiLine"
         android:lines="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etName"
         app:layout_constraintVertical_chainStyle="packed"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:background="@drawable/main_text"
+        android:padding="10dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rwQuestions"
@@ -53,7 +58,9 @@
         android:layout_height="wrap_content"
         android:text="Add question"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/button"
+        android:padding="10dp"/>
 
     <Button
         android:id="@+id/btCreateQuiz"
@@ -61,6 +68,8 @@
         android:layout_height="wrap_content"
         android:text="Create quiz"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/button"
+        android:padding="10dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
