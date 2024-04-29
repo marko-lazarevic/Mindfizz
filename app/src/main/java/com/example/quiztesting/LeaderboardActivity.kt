@@ -1,9 +1,12 @@
 package com.example.quiztesting
 
+import LeaderboardAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class LeaderboardActivity : ComponentActivity() {
 
@@ -18,6 +21,9 @@ class LeaderboardActivity : ComponentActivity() {
         DatabaseUtils.loadLeadboardByKey(quizCode,object : DatabaseUtils.BoardLoadListener {
             override fun onBoardLoaded(board: MutableList<LeaderboardEntry>) {
                 Log.d("Leaderboard",board.toString())
+                val recyclerView: RecyclerView = findViewById(R.id.rwItems)
+                recyclerView.layoutManager = LinearLayoutManager(this@LeaderboardActivity)
+                recyclerView.adapter = LeaderboardAdapter(board)
             }
 
             override fun onBoardNotFound(quizCode: String) {
