@@ -12,12 +12,13 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/logo"
         android:src="@drawable/logo2"
-        android:translationY="-170dp"
+        app:layout_constraintBottom_toTopOf="@+id/etQuizCode"
         app:layout_constraintEnd_toStartOf="@id/etQuizCode"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        android:contentDescription="@string/logo" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
 
     <EditText
@@ -49,6 +50,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etQuizCode" />
+    <Button
+        android:id="@+id/btLeaderboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/button"
+        android:text="@string/show_leaderboard"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btPlay"
+        android:padding="10dp"/>
 
     <Button
         android:id="@+id/btCreate"
@@ -60,5 +73,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btPlay" />
+        app:layout_constraintTop_toBottomOf="@+id/btLeaderboard" />
 </androidx.constraintlayout.widget.ConstraintLayout>

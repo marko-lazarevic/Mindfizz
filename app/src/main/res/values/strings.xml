@@ -7,4 +7,5 @@
     <string name="quiz_name">Quiz name</string>
     <string name="quiz_description">Quiz description</string>
     <string name="logo">logo</string>
+    <string name="show_leaderboard">Show leaderboard</string>
 </resources>

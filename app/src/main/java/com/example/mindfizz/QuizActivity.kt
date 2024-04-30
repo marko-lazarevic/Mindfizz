@@ -52,8 +52,10 @@ class QuizActivity: ComponentActivity() {
         quizCode =intent.getStringExtra("quizCode") ?: return
 
         btnSubmit.setOnClickListener {
-            checkAnswer()
-            displayNextQuestion()
+            if(selectedAnswerIndex!=-1) {
+                checkAnswer()
+                displayNextQuestion()
+            }
         }
 
         displayNextQuestion()

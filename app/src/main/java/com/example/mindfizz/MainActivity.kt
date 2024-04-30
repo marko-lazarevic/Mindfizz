@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.activity.ComponentActivity
 import android.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -80,6 +82,17 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        val btLeaderboard = findViewById<Button>(R.id.btLeaderboard)
+
+        btLeaderboard.setOnClickListener{
+            val quizCode = etQuizCode.text.toString().trim()
+            if (quizCode.isNotEmpty()) {
+                showLeaderboard(quizCode)
+            } else {
+                showAlertDialog()
+            }
+        }
+
         val btCreate = findViewById<Button>(R.id.btCreate)
         btCreate.setOnClickListener {
             val intent = Intent(this@MainActivity, CreateQuizActivity::class.java)
@@ -98,7 +111,7 @@ class MainActivity : ComponentActivity() {
             }
 
             override fun onQuizNotFound(quizCode: String) {
-                showAlertDialog2()
+                showAlertDialog2("Quiz not found!")
                 Log.d("MainActivity", "Quiz not found for code: $quizCode")
             }
 
@@ -107,6 +120,25 @@ class MainActivity : ComponentActivity() {
             }
         })
 
+    }
+
+    private fun showLeaderboard(quizCode: String){
+        DatabaseUtils.loadLeadboardByKey(quizCode, object : DatabaseUtils.BoardLoadListener {
+            override fun onBoardLoaded(board: MutableList<LeaderboardEntry>) {
+                val intent = Intent(this@MainActivity, LeaderboardActivity::class.java)
+                intent.putExtra("quizCode",quizCode)
+                startActivity(intent)
+            }
+
+            override fun onBoardNotFound(quizCode: String) {
+                showAlertDialog2("Leaderboard not found for that quiz code!")
+                Log.d("MainActivity", "Quiz not found for code: $quizCode")
+            }
+
+            override fun onDatabaseError(error: String) {
+                Log.e("Leaderboard", "Error loading leaderboard: $error")
+            }
+        })
     }
 
     private fun showAlertDialog() {
@@ -119,9 +151,9 @@ class MainActivity : ComponentActivity() {
         alertDialog.show()
     }
 
-    private fun showAlertDialog2() {
+    private fun showAlertDialog2(title:String) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Quiz not found!")
+        builder.setTitle(title)
             .setMessage("Please try again.")
             .setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
