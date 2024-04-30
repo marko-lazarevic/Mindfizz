@@ -1,4 +1,4 @@
-package com.example.quiztesting
+package com.example.mindfizz
 
 import android.os.Parcel
 import android.os.Parcelable

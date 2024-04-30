@@ -4,8 +4,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.quiztesting.LeaderboardEntry
-import com.example.quiztesting.R
+import com.example.mindfizz.LeaderboardEntry
+import com.example.mindfizz.R
 
 class LeaderboardAdapter(private val board: MutableList<LeaderboardEntry>) :
     RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QuizTesting</string>
+    <string name="app_name">MindFizz</string>
     <string name="quiz_placeholder">Quiz code</string>
     <string name="quiz_code">Quiz code</string>
     <string name="play">Play</string>

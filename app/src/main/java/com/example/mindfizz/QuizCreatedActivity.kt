@@ -1,4 +1,4 @@
-package com.example.quiztesting
+package com.example.mindfizz
 
 import android.content.ClipData
 import android.content.ClipboardManager

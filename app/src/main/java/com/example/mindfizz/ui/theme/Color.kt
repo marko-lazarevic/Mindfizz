@@ -1,4 +1,4 @@
-package com.example.quiztesting.ui.theme
+package com.example.mindfizz.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

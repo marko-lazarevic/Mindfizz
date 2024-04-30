@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.quiztesting"
+    namespace = "com.example.mindfizz"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.quiztesting"
+        applicationId = "com.example.mindfizz"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

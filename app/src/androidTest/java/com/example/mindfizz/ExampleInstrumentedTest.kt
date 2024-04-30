@@ -1,4 +1,4 @@
-package com.example.quiztesting
+package com.example.mindfizz
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -1,4 +1,4 @@
-package com.example.quiztesting
+package com.example.mindfizz
 
 import LeaderboardAdapter
 import android.content.Intent

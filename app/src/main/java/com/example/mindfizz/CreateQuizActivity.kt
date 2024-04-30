@@ -1,4 +1,4 @@
-package com.example.quiztesting
+package com.example.mindfizz
 
 import android.app.AlertDialog
 import android.content.Intent

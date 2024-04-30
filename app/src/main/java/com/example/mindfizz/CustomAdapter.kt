@@ -1,4 +1,4 @@
-package com.example.quiztesting
+package com.example.mindfizz
 
 import android.view.LayoutInflater
 import android.view.View
@@ -45,7 +45,8 @@ class CustomAdapter(private val mList: List<ItemsViewModel>,
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
             itemView.setOnClickListener {
-                onItemClick(adapterPosition)
+                onItemClick(getAbsoluteAdapterPosition())
+                // onItemClick(adapterPosition)
             }
         }
 

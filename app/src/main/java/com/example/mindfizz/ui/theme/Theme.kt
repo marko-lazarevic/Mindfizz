@@ -1,4 +1,4 @@
-package com.example.quiztesting.ui.theme
+package com.example.mindfizz.ui.theme
 
 import android.app.Activity
 import android.os.Build

@@ -1,4 +1,4 @@
-package com.example.quiztesting
+package com.example.mindfizz
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
