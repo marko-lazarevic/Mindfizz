@@ -2,6 +2,7 @@
 <resources>
 
     <style name="Theme.QuizTesting" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:windowBackground">@color/main_background</item>
+        <!-- <item name="android:windowBackground">@color/main_background</item> -->
+        <item name="android:windowBackground">@drawable/mindfizz_backg_test</item>
     </style>
 </resources>
