@@ -47,6 +47,15 @@
         android:textSize="30sp"
         android:textColor="@color/black" />
 
+    <ImageButton
+        android:id="@+id/copy"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_copy"
+        app:layout_constraintTop_toBottomOf="@+id/twCode"
+        tools:ignore="MissingConstraints" />
+
+
     <Button
         android:id="@+id/btHome"
         android:layout_width="wrap_content"

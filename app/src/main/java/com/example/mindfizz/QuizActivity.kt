@@ -121,7 +121,7 @@ class QuizActivity: ComponentActivity() {
         }
     }
 
-    private fun selectOption(index: Int) {
+   private fun selectOption(index: Int) {
         // Reset border colors
         option1TextView.setBackgroundResource(android.R.color.transparent)
         option2TextView.setBackgroundResource(android.R.color.transparent)
@@ -130,10 +130,10 @@ class QuizActivity: ComponentActivity() {
 
         // Set selected border color
         when (index) {
-            0 -> option1TextView.setBackgroundResource(R.drawable.border_black)
-            1 -> option2TextView.setBackgroundResource(R.drawable.border_black)
-            2 -> option3TextView.setBackgroundResource(R.drawable.border_black)
-            3 -> option4TextView.setBackgroundResource(R.drawable.border_black)
+            0 -> option1TextView.setBackgroundResource(R.drawable.button_action)
+            1 -> option2TextView.setBackgroundResource(R.drawable.button_action)
+            2 -> option3TextView.setBackgroundResource(R.drawable.button_action)
+            3 -> option4TextView.setBackgroundResource(R.drawable.button_action)
         }
 
         // Update selected answer index

@@ -11,5 +11,6 @@
     <color name="secondary_background">#0a63d2</color>
     <color name="element_background">#dde3e6</color>
     <color name="main_text">#0f1e33</color>
+    <color name="btn_pressed">#9d9696</color>
 
 </resources>

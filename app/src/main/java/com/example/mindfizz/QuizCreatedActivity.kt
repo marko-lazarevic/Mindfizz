@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -17,6 +18,7 @@ class QuizCreatedActivity : ComponentActivity() {
 
         val twCode = findViewById<TextView>(R.id.twCode)
         val btHome = findViewById<Button>(R.id.btHome)
+        val btCopy = findViewById<ImageButton>(R.id.copy)
 
         // Get the quiz code from extras
         val quizCode = intent.getStringExtra("quiz_code")
@@ -29,6 +31,14 @@ class QuizCreatedActivity : ComponentActivity() {
             clipboardManager.setPrimaryClip(clip)
             // Show a message indicating the code is copied
             // You can use Toast or Snack bar for this
+
+            showToast("Quiz code copied to clipboard")
+        }
+
+        btCopy.setOnClickListener {
+            val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("Quiz Code", quizCode)
+            clipboardManager.setPrimaryClip(clip)
 
             showToast("Quiz code copied to clipboard")
         }
