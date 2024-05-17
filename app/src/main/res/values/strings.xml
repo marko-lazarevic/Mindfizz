@@ -8,4 +8,6 @@
     <string name="quiz_description">Quiz description</string>
     <string name="logo">logo</string>
     <string name="show_leaderboard">Show leaderboard</string>
+    <string name="quiz_successfully_created">Quiz successfully created</string>
+    <string name="congrats_message">Congratulations on creating your quiz it can be accessed with the code shown below. Click on the code to copy it to the clipboard or hold it down to share it with your friends.</string>
 </resources>
