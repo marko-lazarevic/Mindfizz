@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.ComponentActivity
@@ -189,6 +190,13 @@ class QuizActivity: ComponentActivity() {
 
         if (::countDownTimer.isInitialized) {
             countDownTimer.cancel()
+        }
+
+        if(currentQuestionIndex == quiz.questions.size-1){
+            DatabaseUtils.addUserToLeaderboard(quizCode,score)
+            val intent = Intent(this@QuizActivity, LeaderboardActivity::class.java)
+            intent.putExtra("quizCode",quizCode)
+            startActivity(intent)
         }
 
         // Start a new timer for 5 seconds
