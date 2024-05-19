@@ -166,5 +166,21 @@ class MainActivity : ComponentActivity() {
 
     }
 
+    override fun onBackPressed() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Close App")
+        builder.setMessage("Are you sure you want to close the app?")
+        builder.setPositiveButton("Yes") { dialog, _ ->
+            dialog.dismiss()
+            moveTaskToBack(true)
+            finish()
+        }
+        builder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.show()
+    }
+
 }
 
