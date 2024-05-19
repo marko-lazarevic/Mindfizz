@@ -4,6 +4,7 @@ import LeaderboardAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,17 @@ class LeaderboardActivity : ComponentActivity() {
         setContentView(R.layout.leaderboard)
         quizCode =intent.getStringExtra("quizCode") ?: "q1"
         loadLeaderboardAndListen(quizCode)
+
+
+        val btHome = findViewById<Button>(R.id.btHome)
+
+        btHome.setOnClickListener {
+            // Navigate to MainActivity
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish() // Finish the current activity to prevent going back to it
+        }
+
     }
 
     private fun loadLeaderboardAndListen(quizCode: String) {
