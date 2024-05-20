@@ -113,12 +113,12 @@ class QuizActivity: ComponentActivity() {
             option3TextView.text = optionsShuffled[2]
             option4TextView.text = optionsShuffled[3]
 
-        } else {
+        } /*else {
             DatabaseUtils.addUserToLeaderboard(quizCode,score)
             val intent = Intent(this@QuizActivity, LeaderboardActivity::class.java)
             intent.putExtra("quizCode",quizCode)
             startActivity(intent)
-        }
+        } */
     }
 
    private fun selectOption(index: Int) {
