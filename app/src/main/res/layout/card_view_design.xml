@@ -2,8 +2,8 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="300dp"
-    android:layout_height="50dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
     app:cardElevation="6dp">
 
@@ -11,41 +11,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:gravity="center_vertical"
+        android:topLeftRadius="20dp"
+        android:bottomRightRadius="20dp"
+        android:topRightRadius="20dp"
+        android:bottomLeftRadius="20dp">
 
-        <ImageView
-            android:id="@+id/imageview"
-            android:layout_width="40dp"
-            android:src="@drawable/itemimage"
-            android:layout_height="40dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:layout_gravity="start"
-            />
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="20sp"
+            android:gravity="right"
+            android:text="1."
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:translationY="7dp"
+            android:layout_weight="1"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="15dp"
             android:text="Item"
-            android:layout_weight="0.5"
-            android:layout_gravity="fill"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_gravity="end"
             android:id="@+id/imDelete"
-            android:scaleType="fitEnd"
-            android:layout_weight="0.01"
             android:src="@drawable/itemimage2"
-            android:background="@drawable/image_border"
-            />
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="5dp"/>
 
 
     </LinearLayout>

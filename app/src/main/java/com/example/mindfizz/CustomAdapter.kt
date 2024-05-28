@@ -29,6 +29,7 @@ class CustomAdapter(private val mList: List<ItemsViewModel>,
 
         // sets the text to the textview from our itemHolder class
         holder.textView.text = itemsViewModel.text
+        holder.number.text = (position+1).toString()+"."
 
         holder.imDelete.setOnClickListener {
             onDeleteClick(position)
@@ -52,5 +53,6 @@ class CustomAdapter(private val mList: List<ItemsViewModel>,
 
         val textView: TextView = itemView.findViewById(R.id.textView)
         val imDelete: ImageView = itemView.findViewById(R.id.imDelete)
+        val number:TextView = itemView.findViewById(R.id.number)
     }
 }
